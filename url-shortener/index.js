@@ -22,19 +22,18 @@ const redisClient = createClient({
 redisClient.on('error', (err) => console.error('Redis Client Error', err));
 
 
-
 const corsOptions = {
   origin: [
-    "http://localhost:5173",                   // local dev
-    "https://url-shortner-tawny-tau.vercel.app" // deployed frontend
+    "http://localhost:5173",
+    "https://url-shortner-tawny-tau.vercel.app"
   ],
-  methods: ["GET", "POST", "PATCH", "DELETE"],
+  methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true, // allow sending tokens/cookies
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
-
+app.options("*", cors(corsOptions)); // Handle preflight
 app.use(express.json());
 
 
@@ -155,7 +154,13 @@ app.get('/:shortCode', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, async () => {
-    await connectToServices();
+
+app.listen(PORT, "0.0.0.0", async () => {
+  try {
+    await connectToServices(); // your Redis + RabbitMQ connect
     console.log(`Server is running on port ${PORT}`);
+  } catch (err) {
+    console.error("Service connection failed:", err);
+    process.exit(1);
+  }
 });
