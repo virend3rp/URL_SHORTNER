@@ -1,27 +1,28 @@
 {
-  "name": "url-shortener",
+  "name": "url-shortener-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "The backend service for a scalable URL shortener with caching and analytics.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "worker": "node worker.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Virender Parasariya",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
-    "amqplib": "^0.10.9",
-    "bcryptjs": "^3.0.2",
+    "amqplib": "^0.10.3",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^17.2.1",
-    "express": "^5.1.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
-    "nanoid": "^5.1.5",
-    "pg": "^8.16.3",
-    "redis": "^5.8.2"
+    "nanoid": "^3.3.6",
+    "pg": "^8.11.3",
+    "redis": "^4.6.10"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.0.1"
   }
 }
