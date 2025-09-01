@@ -24,7 +24,7 @@ redisClient.on('error', (err) => console.error('Redis Client Error', err));
 
 
 const corsOptions = {
-    origin: ['http://localhost:5173', 'https://your-vercel-frontend-url.vercel.app'],
+    origin: ['http://localhost:5173', 'https://url-shortner-jo0wiy6ek-virend3rps-projects.vercel.app'],
     optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
