@@ -2,7 +2,7 @@ Scalable URL Shortener & Analytics Platform
 
 This is a full-stack, production-ready URL shortening service built with a focus on performance, scalability, and modern system design principles. The application features a React/Vite frontend and a Node.js/Express backend, supported by Redis for caching and RabbitMQ for asynchronous analytics processing.
 
-Live Demo: [Link to your deployed frontend will go here]
+Live Demo: 
 Core Features
 
     Secure User Authentication: JWT-based authentication for user registration and login.
@@ -19,7 +19,6 @@ System Architecture Diagram
 
 This diagram illustrates the flow of data and the interaction between the different services in the application.
 
-(This is where you will embed your architecture diagram image. Create one using a tool like draw.io or Excalidraw and upload it to your repository.)
 Tech Stack
 Backend
 
@@ -53,7 +52,7 @@ To run this project locally, you will need Node.js, Redis, and RabbitMQ installe
 1. Backend Setup (url-shortener)
 
 # Clone the repository
-git clone [your-backend-repo-url]
+git clone backend folder
 cd url-shortener
 
 # Install dependencies
@@ -72,7 +71,7 @@ node worker.js
 2. Frontend Setup (url-shortener-ui)
 
 # Clone the repository in a separate directory
-git clone [your-frontend-repo-url]
+git clone {url-shortner-ui}
 cd url-shortener-ui
 
 # Install dependencies
@@ -81,7 +80,7 @@ npm install
 # Start the development server
 npm run dev
 
-The frontend will be available at http://localhost:5173.
+The frontend will be available in localhost.
 API Endpoints
 
     POST /api/v1/auth/register: Create a new user account.
