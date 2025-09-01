@@ -24,10 +24,17 @@ redisClient.on('error', (err) => console.error('Redis Client Error', err));
 
 
 const corsOptions = {
-    origin: ['http://localhost:5173', 'https://url-shortner-tawny-tau.vercel.app'],
-    optionsSuccessStatus: 200
+  origin: [
+    "http://localhost:5173",                   // local dev
+    "https://url-shortner-tawny-tau.vercel.app" // deployed frontend
+  ],
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true, // allow sending tokens/cookies
 };
+
 app.use(cors(corsOptions));
+
 app.use(express.json());
 
 
