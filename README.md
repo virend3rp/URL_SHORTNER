@@ -59,9 +59,7 @@ cd url-shortener
 # Install dependencies
 npm install
 
-# Create a .env file in the root and add the following variables:
-# DATABASE_URL="your_supabase_connection_string"
-# JWT_SECRET="your_strong_jwt_secret"
+# Create a .env file in the root
 
 # Ensure Redis and RabbitMQ services are running.
 
