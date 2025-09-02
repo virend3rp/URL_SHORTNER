@@ -36,6 +36,7 @@ const DashboardPage = () => {
             setLongUrl(''); // Clear input field
             fetchUrls(); // Refresh the list of URLs
         } catch (err) {
+            console.error(err);
             setError('Failed to shorten URL. Please enter a valid URL.');
         }
     };
@@ -76,7 +77,15 @@ const DashboardPage = () => {
                 </form>
                 {newShortUrl && (
                     <div className="mt-4 p-3 bg-green-100 text-green-800 rounded-lg">
-                        New Short URL: <a href={newShortUrl} target="_blank" rel="noopener noreferrer" className="font-bold underline">{newShortUrl}</a>
+                        New Short URL:{" "}
+                        <a 
+                            href={newShortUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="font-bold underline"
+                        >
+                            {newShortUrl}
+                        </a>
                     </div>
                 )}
                  {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
@@ -87,14 +96,23 @@ const DashboardPage = () => {
                  <div className="space-y-4">
                     {urls.length > 0 ? (
                         urls.map((url) => (
-                            <div key={url.short_code} className="p-4 border rounded-lg flex justify-between items-center">
+                            <div key={url.shortUrl} className="p-4 border rounded-lg flex justify-between items-center">
                                 <div>
-                                    <a href={`http://localhost:3000/${url.short_code}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 font-bold text-lg">
-                                        http://localhost:3000/{url.short_code}
+                                    <a 
+                                        href={url.shortUrl} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer" 
+                                        className="text-blue-600 font-bold text-lg"
+                                    >
+                                        {url.shortUrl}
                                     </a>
-                                    <p className="text-gray-500 text-sm truncate" style={{maxWidth: '400px'}}>{url.long_url}</p>
+                                    <p className="text-gray-500 text-sm truncate" style={{maxWidth: '400px'}}>
+                                        {url.longUrl}
+                                    </p>
                                 </div>
-                                <p className="text-gray-400 text-sm">{new Date(url.created_at).toLocaleDateString()}</p>
+                                <p className="text-gray-400 text-sm">
+                                    {new Date(url.createdAt).toLocaleDateString()}
+                                </p>
                             </div>
                         ))
                     ) : (
