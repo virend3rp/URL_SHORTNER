@@ -104,28 +104,36 @@ app.post('/api/v1/url', authMiddleware, async (req, res) => {
 
   try {
     const shortCode = nanoid(8);
-    const query =
-      'INSERT INTO urls(short_code, long_url, user_id) VALUES($1, $2, $3) RETURNING short_code';
+    const query = `
+      INSERT INTO urls (short_code, long_url, user_id)
+      VALUES ($1, $2, $3)
+      RETURNING short_code, long_url, created_at
+    `;
     const result = await pool.query(query, [shortCode, longUrl, userId]);
 
-    // --- Decide base URL ---
-    const baseUrl =
-      process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
+    const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
+    const shortUrl = `${baseUrl}/${result.rows[0].short_code}`;
 
-    const newShortUrl = `${baseUrl}/${result.rows[0].short_code}`;
-
-    return res.status(201).json({ shortUrl: newShortUrl });
+    res.status(201).json({
+      shortUrl,
+      longUrl: result.rows[0].long_url,
+      createdAt: result.rows[0].created_at,
+    });
   } catch (error) {
     console.error('Error creating short URL:', error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 app.get('/api/v1/my-urls', authMiddleware, async (req, res) => {
   const userId = req.user.userId;
   try {
-    const query = 'SELECT short_code, long_url, created_at FROM urls WHERE user_id = $1 ORDER BY created_at DESC';
+    const query = `
+      SELECT short_code, long_url, created_at
+      FROM urls
+      WHERE user_id = $1
+      ORDER BY created_at DESC
+    `;
     const result = await pool.query(query, [userId]);
 
     const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
